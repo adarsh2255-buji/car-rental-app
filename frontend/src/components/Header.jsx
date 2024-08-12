@@ -19,8 +19,8 @@ const Header = () => {
           <LinkContainer to='/home'><Nav.Link >Home</Nav.Link></LinkContainer> 
           <LinkContainer to='/about'><Nav.Link >About</Nav.Link></LinkContainer> 
           <LinkContainer to='/contact'><Nav.Link >Contact</Nav.Link></LinkContainer> 
-          <LinkContainer to='/sign'><Nav.Link >Sign in</Nav.Link></LinkContainer> 
-           <LinkContainer to='/signup'><Nav.Link >Sign up</Nav.Link></LinkContainer> 
+          <LinkContainer to='/signin'><Nav.Link >Sign in</Nav.Link></LinkContainer> 
+          <LinkContainer to='/signup'><Nav.Link >Sign up</Nav.Link></LinkContainer> 
             
           </Nav>
         </Navbar.Collapse>
