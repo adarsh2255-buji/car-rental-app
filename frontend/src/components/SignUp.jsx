@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/esm/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row'
+import api from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+  const navigate = useNavigate();
  
   const [ userData, setUserData ] = useState({
-    userName : "",
+    username : "",
     email : "",
     password : "",
     phone : "",
@@ -22,8 +25,19 @@ const SignUp = () => {
 
   const submitHandler = async(e) =>{
     e.preventDefault();
-    console.log(userData)
+    try {
+      const response = await api.post('/signup', userData);
+      navigate('/signin')
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
   }
+  // useEffect(()=>{
+  //   if(userData){
+  //     navigate('/signin')
+  //   }
+  // }, [userData, navigate])
   return (
     <>
     <h1 className='text-center mt-5'>NEW CUSTOMER REGISTER HERE</h1>
@@ -33,8 +47,8 @@ const SignUp = () => {
       <Form.Group as={Col}>
         <Form.Label>Name</Form.Label>
         <Form.Control type="text" placeholder="Name"
-        name='userName'
-        value={userData.userName}
+        name='username'
+        value={userData.username}
         onChange={handleChange}
         required/>
       </Form.Group>
