@@ -6,6 +6,7 @@ import carRouter from './routes/carRoutes.js'
 import bookingRouter from './routes/bookingRoutes.js'
 import adminRouter from './routes/adminRoutes.js'
 import cookieParser from 'cookie-parser';
+import cors from 'cors'
 dotenv.config();
 const port = process.env.PORT || 3000;
 
@@ -14,6 +15,7 @@ connectDb()
 const app = express();
 app.use(express.json());
 app.use(cookieParser())
+app.use(cors()) 
 
 app.use(userRouter)
 app.use(carRouter)
