@@ -9,6 +9,7 @@ import ErrorPage from './components/ErrorPage.jsx'
 import SignUp from './components/SignUp.jsx'
 import Home from './components/Home.jsx'
 import SignIn from './components/SignIn.jsx'
+import  UserProvider  from './context/UserContext.jsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,8 @@ const router = createBrowserRouter([
 ])
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <UserProvider>
     <RouterProvider router={router}/>
+    </UserProvider>
   </StrictMode>,
 )

@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/esm/Container';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api';
+import { UserContext } from '../context/UserContext';
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { login } = useContext(UserContext)
  
   const [ signInData, setSignInData ] = useState({
     email : "",
@@ -22,8 +24,12 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const response = await api.post('/signin', signInData);
+      const data = response.data
+      if(response.data){
+        login(response.data)
+      }
       navigate('/home')
-      console.log(response)
+      console.log(data)
     } catch (error) {
       console.log(error)
     }
@@ -31,7 +37,7 @@ const SignIn = () => {
  
   return (
     <>
-    <h1 className='text-center mt-5'>LOG IN HERE</h1>
+    <h1 className='text-center mt-5'>SIGN IN HERE</h1>
     <Container className='d-flex justify-content-center align-items-center'>
     <Form onSubmit={submitHandler}>
      
