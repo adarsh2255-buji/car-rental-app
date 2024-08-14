@@ -50,3 +50,14 @@ export const getCarById = async(req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 } 
+
+//get all cars
+
+export const getAllCars = async (req, res) =>{
+    try {
+        const cars = await Car.find();
+        res.status(200).json({ cars})
+    } catch (error) {
+        res.status(500).json({ message: "Server error ", error})
+    }
+}
