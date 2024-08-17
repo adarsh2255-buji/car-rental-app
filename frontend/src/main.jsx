@@ -11,7 +11,8 @@ import Home from './components/Home.jsx'
 import SignIn from './components/SignIn.jsx'
 import  UserProvider  from './context/UserContext.jsx'
 import CarLIst from './components/CarLIst.jsx'
-import ConfirmBooking from './components/ConfirmBooking.jsx'
+import Booking from './components/Booking.jsx'
+import CarProvider from './context/CarContext.jsx'
 
 const router = createBrowserRouter([
   {
@@ -35,8 +36,8 @@ const router = createBrowserRouter([
         path: '/selelctCar',
         element: <CarLIst />
       },{
-        path: '/confirmBooking',
-        element: <ConfirmBooking />
+        path: '/booking',
+        element: <Booking />
       }
     ]
   },
@@ -44,7 +45,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <UserProvider>
+      <CarProvider>
     <RouterProvider router={router}/>
+      </CarProvider>
     </UserProvider>
   </StrictMode>,
 )
