@@ -1,8 +1,7 @@
 import Booking from "../model/BookingModel.js";
 import Car from "../model/carModel.js"
 import User from "../model/userModel.js"
-
-
+ 
 //function to calculate total price
 const calculateTotalPrice = (pricePerDay, pickUpDateAndTime, dropOffDateAndTime) =>{
     const pickUpDate = new Date(pickUpDateAndTime);
@@ -21,6 +20,8 @@ export const carBooking = async (req, res) =>{
             pickUpDateAndTime,
             dropOffLocation,
             dropOffDateAndTime } = req.body
+
+            console.log('Received car ID:', car);
 
             //car availablity
             const bookedCar = await Car.findById(car);
@@ -114,4 +115,4 @@ export const cancelBooking = async (req, res) =>{
         console.error(error);
         return res.status(500).json({ message: "Server error", error });
     }
-} 
+}  
