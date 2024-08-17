@@ -1,99 +1,56 @@
-import React, { useContext, useState, useEffect } from 'react'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/esm/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row'
-import api from '../../api';
-import { UserContext } from '../context/UserContext';
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import api from '../../api';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { CarContext } from '../context/CarContext';
 
 const Home = () => {
-  const [bookingData, setBookingData] = useState({
-    pickUpLocation : "",
-    pickUpDateAndTime : "",
-    dropOffLocation : "",
-    dropOffDateAndTime:""
-  })
+  const [cars, setCar] = useState([]);
+  const { setSelectedCarId } = useContext(CarContext);
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-
-  const { user } = useContext(UserContext)
-
-  const handleChange = (e)=>{
-    setBookingData({...bookingData,[ e.target.name] : e.target.value })
-  }
-
-  const submitHandler = async(e)=>{
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem('token');
-      const response = await api.post('/booking', bookingData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}` // Include the token in the Authorization header
-        }
-      }, 
-      localStorage.setItem('bookingDate', JSON.stringify(bookingData)),
-      navigate('/selelctCar')
-    );
-
-      console.log(response.data)
-    } catch (error) {
-      console.log(error)  
-      console.error(error.response?.data || error.message);
+  useEffect(()=>{
+    const fetchCar = async()=>{
+      const response = await api.get('/cars')
+      setCar(response.data.cars)
+      console.log(response.data.cars)
     }
-  }
+    fetchCar()
+  },[])
+  
+  const HandleSelectCar = (carId)=>{
+    setSelectedCarId(carId)
+    // localStorage.setItem('selectedCarId', carId )
+    navigate('/booking')
+    console.log(carId)
+  }  
   return (
     <div>
+      <h1>Select your car</h1>
       <Container>
-        <h1 className='m-4'>Choose your wheel</h1>
-        <Container className='d-flex justify-content-center align-items-center'>
-    <Form onSubmit={submitHandler} >
-      <Row className="mb-3">
-      <Form.Group as={Col}>
-        <Form.Label>PICKUP-LOCATION</Form.Label>
-        <Form.Control type="text" placeholder="Pickup location"
-        name='pickUpLocation'
-        value={bookingData.pickUpLocation}
-        onChange={handleChange}
-        required/>
-      </Form.Group>
-
-      <Form.Group as={Col}>
-        <Form.Label>PICK-UP DATE AND TIME</Form.Label>
-        <Form.Control type="Date"
-        name='pickUpDateAndTime'
-        value={bookingData.pickUpDateAndTime}
-        onChange={handleChange}
-        required />
-      </Form.Group>
+        <Row>
+      {
+        cars.map((car)=>(
+          <Col  key={car._id} md={4} sm={6} className="mb-4">
+          <Card>
+            <Card.Body>
+              <Card.Title>{car.make}</Card.Title>
+              <Card.Subtitle>{car.model}</Card.Subtitle>
+              <Card.Img  src={car.image}/>
+              <Card.Text>Allowed KM : {car.allowedKM}</Card.Text>
+              <Card.Text>Gear Transmission : {car.gearTransmission}</Card.Text>
+              <Card.Text>Km per day : {car.kmPerDay}</Card.Text>
+              <Card.Text>price Per Day: {car.pricePerDay}</Card.Text>
+              <Card.Text>Seater : {car.seater}</Card.Text>
+              <Card.Text>Availability :{car.availability ? 'Available' : 'Not available'}</Card.Text>
+              <Button onClick={()=>{HandleSelectCar(car._id)}}>Select</Button>
+            </Card.Body>
+          </Card>
+          </Col>
+        ))
+        
+      }
       </Row>
-
-      <Row className='mb-3'>
-      <Form.Group as={Col}>
-        <Form.Label>DROP-OFF LOCATION</Form.Label>
-        <Form.Control type="text" placeholder="Drop off location"
-        name='dropOffLocation'
-        value={bookingData.dropOffLocation}
-        onChange={handleChange}
-        required/>
-      </Form.Group>
-      
-      <Form.Group as={Col}>
-        <Form.Label>DROP OF DATE AND TIME</Form.Label>
-        <Form.Control type="Date"
-        name='dropOffDateAndTime'
-        value={bookingData.dropOffDateAndTime}
-        onChange={handleChange}
-        required/>
-      </Form.Group>
-      </Row>      
-      <Button variant="primary" type="submit">
-        SEARCH ➡️
-      </Button>
-    </Form>
-    </Container>
       </Container>
     </div>
   )
