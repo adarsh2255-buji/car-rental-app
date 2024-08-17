@@ -5,35 +5,16 @@ import User from "../model/userModel.js";
 const protect = async(req, res, next) =>{
     let token;
 
-    // if(req.cookies.token){
-    //     try {
-    //         //get token from cookie
-    //         token = req.cookies.token;
-
-    //         //verify token
-    //         const decode = jwt.verify(token, process.env.JWT_SECRET)
-
-    //         //get user from token
-    //         req.user = await User.findById(decode.userId).select('-password');
-    //         next()
-    //     } catch (error) {
-    //         console.log(error);
-    //         res.status(401).json({ message : "not autherized, token failed" });
-    //     }
-    // }
-
-    // if(!token) {
-    //     res.status(401).json({ message : "Not authorized, no token" })
-    // }
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
             // Get token from the header
             token = req.headers.authorization.split(' ')[1];
-            console.log(token)
+            console.log('Received Token:', token);
 
             // Verify token
             const decode = jwt.verify(token, process.env.JWT_SECRET);
-
+            console.log('Decoded:', decode);
+            
             // Get user from token
             req.user = await User.findById(decode.userId).select('-password');
             next();
@@ -58,3 +39,49 @@ export const adminMiddleware = (req, res, next) => {
     }
 }
 export default protect; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // if(req.cookies.token){
+    //     try {
+    //         //get token from cookie
+    //         token = req.cookies.token;
+
+    //         //verify token
+    //         const decode = jwt.verify(token, process.env.JWT_SECRET)
+
+    //         //get user from token
+    //         req.user = await User.findById(decode.userId).select('-password');
+    //         next()
+    //     } catch (error) {
+    //         console.log(error);
+    //         res.status(401).json({ message : "not autherized, token failed" });
+    //     }
+    // }
+
+    // if(!token) {
+    //     res.status(401).json({ message : "Not authorized, no token" })
+    // }
