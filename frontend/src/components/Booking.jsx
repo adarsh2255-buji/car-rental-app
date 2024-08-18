@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row'
 import api from '../../api';
 import { useNavigate } from 'react-router-dom';
-import { CarContext } from '../context/CarContext';
 import { UserContext } from '../context/UserContext';
 
 const Booking = () => {
@@ -16,7 +15,6 @@ const Booking = () => {
     dropOffLocation : "",
     dropOffDateAndTime:"",
   })
-  const { selectedCarId } = useContext(CarContext);
   const { user } = useContext(UserContext)
   const navigate = useNavigate();
   
@@ -25,18 +23,10 @@ const Booking = () => {
   }
 
   const submitHandler = async(e)=>{
-    e.preventDefault();
-    if (!selectedCarId) {
-      console.error('No car selected');
-      return;
-    }
-     
+    e.preventDefault();  
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
-        console.log('No token found');
-        return;
-      }
+      const selectedCarId = localStorage.getItem('selectedCarId')
       const completeBookingData = {
         ...bookingData,
         car : selectedCarId,
@@ -51,7 +41,11 @@ const Booking = () => {
       }, 
       
     );
+    
+    const id = response.data.booking._id;
 
+    navigate(`/BookingDetails/${id}`)
+    localStorage.setItem('currentBookingId', id);
       console.log(response.data)
     } catch (error) {
       console.log(error)  
