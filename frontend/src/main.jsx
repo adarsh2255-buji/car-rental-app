@@ -13,6 +13,7 @@ import  UserProvider  from './context/UserContext.jsx'
 import Booking from './components/Booking.jsx'
 import CarProvider from './context/CarContext.jsx'
 import AllBooking from './components/AllBooking.jsx'
+import BookingDetails from './components/BookingDetails.jsx'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,9 @@ const router = createBrowserRouter([
       },{
         path: '/allBooking',
         element: <AllBooking />
+      },{
+        path: '/bookingDetails/:id',
+        element: <BookingDetails />
       }
     ]
   },
