@@ -10,9 +10,9 @@ import SignUp from './components/SignUp.jsx'
 import Home from './components/Home.jsx'
 import SignIn from './components/SignIn.jsx'
 import  UserProvider  from './context/UserContext.jsx'
-import CarLIst from './components/CarLIst.jsx'
 import Booking from './components/Booking.jsx'
 import CarProvider from './context/CarContext.jsx'
+import AllBooking from './components/AllBooking.jsx'
 
 const router = createBrowserRouter([
   {
@@ -33,11 +33,11 @@ const router = createBrowserRouter([
         path :'signout',
         element: <Home />
       },{
-        path: '/selelctCar',
-        element: <CarLIst />
-      },{
         path: '/booking',
         element: <Booking />
+      },{
+        path: '/allBooking',
+        element: <AllBooking />
       }
     ]
   },
