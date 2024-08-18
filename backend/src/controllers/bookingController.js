@@ -83,7 +83,7 @@ export const carBookingById  = async(req, res) =>{
 export const getAllCarBooking = async(req, res) =>{
     try {
         const booking = await Booking.find().populate('user').populate('car');
-        res.status(404).json({ booking })
+        res.status(200).json({ booking })
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });
     }
