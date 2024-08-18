@@ -1,0 +1,50 @@
+import React, { useContext, useEffect, useState } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap';
+import api from '../../api'
+
+
+const AllBooking = () => {
+    const [allBooking, setAllBooking] = useState([]);
+
+    
+    useEffect(()=>{
+        const token = localStorage.getItem('token');
+        const fetchallBooking = async()=>{
+            const response = await api.get('/allBooking',{
+                    headers: {
+                      Authorization: `Bearer ${token}` // Include the token in the Authorization header
+                  }
+                }
+            )
+            setAllBooking(response.data.booking)
+            console.log(response.data.booking)
+        }
+        fetchallBooking()
+    }, [])
+  return (
+    <Container>
+        <h1>Booking history</h1>
+        <Row>
+        {allBooking.map((booking)=>(
+            <Col key={booking._id} md={4} sm={6} className="mb-4">
+            <Card>
+            <Card.Img variant="top" src={booking.car.image} alt={`${booking.car.make} ${booking.car.model}`} />
+                <Card.Body>
+                <Card.Title>{`${booking.car.make} ${booking.car.model}`}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">Status: {booking.status}</Card.Subtitle>
+                <Card.Text>
+                    <strong>Pick-Up Location:</strong> {booking.pickUpLocation}<br />
+                    <strong>Pick-Up Date & Time:</strong> {new Date(booking.pickUpDateAndTime).toLocaleString()}<br />
+                    <strong>Drop-Off Date & Time:</strong> {new Date(booking.dropOffDateAndTime).toLocaleString()}<br />
+                    <strong>Total Price:</strong> ₹{booking.totalPrice}
+                </Card.Text>
+                </Card.Body>
+            </Card>
+            </Col>
+        ))}
+        </Row>
+    </Container>
+  )
+}
+
+export default AllBooking
