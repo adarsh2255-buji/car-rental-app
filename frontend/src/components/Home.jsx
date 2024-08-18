@@ -20,7 +20,7 @@ const Home = () => {
   
   const HandleSelectCar = (carId)=>{
     setSelectedCarId(carId)
-    // localStorage.setItem('selectedCarId', carId )
+    localStorage.setItem('selectedCarId', carId )
     navigate('/booking')
     console.log(carId)
   }  
