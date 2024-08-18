@@ -22,7 +22,9 @@ const Header = () => {
               <LinkContainer to='/home'><Nav.Link >Home</Nav.Link></LinkContainer>
               <LinkContainer to='/about'><Nav.Link >About</Nav.Link></LinkContainer> 
               <LinkContainer to='/contact'><Nav.Link >Contact</Nav.Link></LinkContainer>
+              <LinkContainer to='/allBooking'><Nav.Link>Bookings</Nav.Link></LinkContainer>
               <LinkContainer to='/signout'><Nav.Link onClick={logout}>Sign out</Nav.Link></LinkContainer>
+              
               </>
             ) : (
               <>
