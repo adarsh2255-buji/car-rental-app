@@ -14,6 +14,7 @@ import Booking from './components/Booking.jsx'
 import CarProvider from './context/CarContext.jsx'
 import AllBooking from './components/AllBooking.jsx'
 import BookingDetails from './components/BookingDetails.jsx'
+import Checkout from './components/Checkout.jsx'
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,9 @@ const router = createBrowserRouter([
       },{
         path: '/bookingDetails/:id',
         element: <BookingDetails />
+      },{
+        path: '/checkout',
+        element: <Checkout />
       }
     ]
   },
