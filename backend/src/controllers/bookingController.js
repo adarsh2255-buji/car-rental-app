@@ -10,6 +10,13 @@ const calculateTotalPrice = (pricePerDay, pickUpDateAndTime, dropOffDateAndTime)
     return days * pricePerDay;
 }
 
+const totalDays = (dropOffDateAndTime, pickUpDateAndTime)=>{
+    const dropOffDate = new Date(dropOffDateAndTime);
+    const pickUpDate = new Date(pickUpDateAndTime);
+    const timeDifference = dropOffDate - pickUpDate;
+    const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    return days;
+}
 //car booking function
 export const carBooking = async (req, res) =>{
     try {
@@ -20,8 +27,6 @@ export const carBooking = async (req, res) =>{
             pickUpDateAndTime,
             dropOffLocation,
             dropOffDateAndTime } = req.body
-
-            console.log('Received car ID:', car);
 
             //car availablity
             const bookedCar = await Car.findById(car);
@@ -35,6 +40,9 @@ export const carBooking = async (req, res) =>{
 
             //total price
             const totalPrice = calculateTotalPrice(bookedCar.pricePerDay, pickUpDateAndTime, dropOffDateAndTime)
+            //total days
+            const totalNoOfDays = totalDays(dropOffDateAndTime, pickUpDateAndTime);
+            
             //create booking
             const booking = new Booking({
                 user,
@@ -43,7 +51,8 @@ export const carBooking = async (req, res) =>{
                 pickUpDateAndTime,
                 dropOffLocation,
                 dropOffDateAndTime,
-                totalPrice
+                totalPrice,
+                totalNoOfDays
     })
 
             await booking.save();
