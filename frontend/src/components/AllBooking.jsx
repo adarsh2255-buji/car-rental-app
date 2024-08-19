@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import api from '../../api'
 
 
@@ -21,6 +21,27 @@ const AllBooking = () => {
         }
         fetchallBooking()
     }, [])
+
+    //cancel booking
+
+    const handleCancelBooking = async (bookingId) =>{
+        const token = localStorage.getItem('token');
+        try {
+            const response = await api.put(`/cancel/${bookingId}`,{}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            //update the booking status in the state
+
+            setAllBooking(allBooking.map(booking => 
+                booking._id === bookingId ? { ...booking, status: "cancelled", isCancelling : true} : booking
+            ));
+            console.log(response.data.message)
+        } catch (error) {
+            console.log("Error cancelling booking", error.response?.data || error.message)
+        }
+    }
   return (
     <Container>
         <h1>Booking history</h1>
@@ -37,6 +58,18 @@ const AllBooking = () => {
                     <strong>Pick-Up Date & Time:</strong> {new Date(booking.pickUpDateAndTime).toLocaleString()}<br />
                     <strong>Drop-Off Date & Time:</strong> {new Date(booking.dropOffDateAndTime).toLocaleString()}<br />
                     <strong>Total Price:</strong> ₹{booking.totalPrice}
+                    <br />
+                    {
+                        booking.status !== "cancelled" ?  (
+                            <Button variant='danger' onClick={()=> handleCancelBooking(booking._id)} disabled= {booking.isCancelling}>
+                                {booking.isCancelling ? 'Booking Cancelled' : 'Cancel Booking'}
+                            </Button>
+                        ) : (
+                            <Button variant="secondary" disabled>
+                            Booking Cancelled
+                        </Button>
+                        )
+                    }
                 </Card.Text>
                 </Card.Body>
             </Card>
