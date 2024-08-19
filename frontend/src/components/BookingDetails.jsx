@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../api';
 import { Button, Container } from 'react-bootstrap';
 
 const BookingDetails = () => {
     const [bookingDetails, setBookingDetails] = useState(null);
-
-
+    const navigate = useNavigate() 
     
     useEffect(()=>{
         const token = localStorage.getItem('token');
@@ -37,7 +36,7 @@ const BookingDetails = () => {
     <div>
         <h1>Complete your booking</h1>
         <Container>
-            <img className='w-50' src={bookingDetails.car.image} alt="" rounded/>
+            <img className='w-50' src={bookingDetails.car.image} alt="car image"/>
             <h5>{bookingDetails.car.make} {bookingDetails.car.model}</h5>
             <h3>YOUR BOOKING DETAILS </h3>
             <p>Car Make & Model : {bookingDetails.car.make} {bookingDetails.car.model}</p>
@@ -46,8 +45,9 @@ const BookingDetails = () => {
             <p>Drop Off Date : {new Date(bookingDetails.dropOffDateAndTime).toDateString()}</p>
             <p>Pick Up Location : {bookingDetails.pickUpLocation}</p>
             <p>Drop Off Location : {bookingDetails.dropOffLocation}</p>
+            <p>Total duration : {bookingDetails.totalNoOfDays}</p>
             <p className='fw-bold'>TOTAL BOOKING COST : ₹ {bookingDetails.totalPrice}</p>
-            <Button>COMPLETE BOOKING</Button>
+            <Button onClick={()=>{navigate('/checkout')}}>COMPLETE BOOKING</Button>
         </Container>
     </div>
   )
