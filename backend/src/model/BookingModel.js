@@ -8,6 +8,7 @@ const bookingSchema = mongoose.Schema({
     dropOffLocation : { type : String, required : true },
     dropOffDateAndTime : { type : Date, required : true },
     totalPrice : { type : Number, required : true },
+    totalNoOfDays : { type : Number, required : true },
     status : {type : String, default : 'Booked'},
 }, { timeStamps : true});
 
