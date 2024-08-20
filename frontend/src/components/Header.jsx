@@ -23,6 +23,11 @@ const Header = () => {
               <LinkContainer to='/about'><Nav.Link >About</Nav.Link></LinkContainer> 
               <LinkContainer to='/contact'><Nav.Link >Contact</Nav.Link></LinkContainer>
               <LinkContainer to='/allBooking'><Nav.Link>Bookings</Nav.Link></LinkContainer>
+
+              {/* if user is admin */}
+              {user.isAdmin && (
+                <LinkContainer to='/admin'><Nav.Link>Admin Dashboard</Nav.Link></LinkContainer>
+              )}
               <LinkContainer to='/signout'><Nav.Link onClick={logout}>Sign out</Nav.Link></LinkContainer>
               
               </>
