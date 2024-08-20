@@ -16,15 +16,15 @@ const AllBooking = () => {
                   }
                 }
             )
-            setAllBooking(response.data.booking)
-            console.log(response.data.booking)
+            setAllBooking(response.data.bookings)
+            console.log(response.data.bookings)
         }
         fetchallBooking()
     }, [])
 
     //cancel booking
 
-    const handleCancelBooking = async (bookingId) =>{
+    const handleCancelBooking = async (bookingId) =>{ 
         const token = localStorage.getItem('token');
         try {
             const response = await api.put(`/cancel/${bookingId}`,{}, {
@@ -57,6 +57,7 @@ const AllBooking = () => {
                     <strong>Pick-Up Location:</strong> {booking.pickUpLocation}<br />
                     <strong>Pick-Up Date & Time:</strong> {new Date(booking.pickUpDateAndTime).toLocaleString()}<br />
                     <strong>Drop-Off Date & Time:</strong> {new Date(booking.dropOffDateAndTime).toLocaleString()}<br />
+                    <strong>Total Duration:</strong> {booking.totalNoOfDays} <br />
                     <strong>Total Price:</strong> ₹{booking.totalPrice}
                     <br />
                     {
