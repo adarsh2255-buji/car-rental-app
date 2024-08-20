@@ -14,8 +14,28 @@ const totalDays = (dropOffDateAndTime, pickUpDateAndTime)=>{
     const dropOffDate = new Date(dropOffDateAndTime);
     const pickUpDate = new Date(pickUpDateAndTime);
     const timeDifference = dropOffDate - pickUpDate;
+
+    if (timeDifference < 0) {
+        throw new Error("Drop-off date must be after pick-up date");
+    }
+
     const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
     return days;
+}
+
+//update booking status
+const updateBookingStatus = (booking) =>{
+    const currentDate = new Date();
+    const pickUpDate = new Date(booking.pickUpDateAndTime);
+    const dropOffDate = new Date(booking.dropOffDateAndTime);
+
+    if(currentDate < pickUpDate){
+        booking.status = 'Booked';
+    } else if(currentDate >= pickUpDate && currentDate <=dropOffDate){
+        booking.status = 'On Journey';
+    } else if( currentDate > dropOffDate) {
+        booking.status = "Journey Completed"
+    }
 }
 //car booking function
 export const carBooking = async (req, res) =>{
@@ -28,6 +48,9 @@ export const carBooking = async (req, res) =>{
             dropOffLocation,
             dropOffDateAndTime } = req.body
 
+            //total days
+            const totalNoOfDays = totalDays(dropOffDateAndTime, pickUpDateAndTime);
+
             //car availablity
             const bookedCar = await Car.findById(car);
             if(!bookedCar){
@@ -35,13 +58,16 @@ export const carBooking = async (req, res) =>{
             }
 
             if(!bookedCar.availability){
-               return res.status(404).json({ message : "Car is not available"})
+               return res.status(400).json({ message : "Car is not available"})
             }
 
+             
             //total price
             const totalPrice = calculateTotalPrice(bookedCar.pricePerDay, pickUpDateAndTime, dropOffDateAndTime)
-            //total days
-            const totalNoOfDays = totalDays(dropOffDateAndTime, pickUpDateAndTime);
+           
+            if (isNaN(totalNoOfDays) || totalNoOfDays <= 0) {
+                return res.status(400).json({ message: "Invalid booking dates" });
+            }
             
             //create booking
             const booking = new Booking({
@@ -52,8 +78,8 @@ export const carBooking = async (req, res) =>{
                 dropOffLocation,
                 dropOffDateAndTime,
                 totalPrice,
-                totalNoOfDays
-    })
+                totalNoOfDays,
+            })
 
             await booking.save();
 
@@ -81,9 +107,11 @@ export const carBookingById  = async(req, res) =>{
         if(!booking) {
             return res.status(404).json({ message : "Booking not found"})
         }
+        updateBookingStatus(booking);
+        await booking.save();
         res.status(200).json(booking)
     } catch (error) {
-        return res.status(500).json({ message : "Server error"})
+        return res.status(500).json({ message : "Server error", error})
     }
 }
 
@@ -91,15 +119,20 @@ export const carBookingById  = async(req, res) =>{
 //get all booking
 export const getAllCarBooking = async(req, res) =>{
     try {
-        const booking = await Booking.find().populate('user').populate('car');
-        res.status(200).json({ booking })
+        const bookings = await Booking.find().populate('user').populate('car');
+
+        // bookings.forEach(async (booking) => {
+        //     updateBookingStatus(booking);
+        //     await booking.save()            
+        // });
+        res.status(200).json({ bookings })
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });
     }
 }
 
 //cancel booking
-
+ 
 export const cancelBooking = async (req, res) =>{
     try {
         const { bookingId} = req.params;
@@ -112,7 +145,7 @@ export const cancelBooking = async (req, res) =>{
         //update booking status
         booking.status = 'cancelled';
         await booking.save();
-
+ 
         //update car availability
         const car = await Car.findById(booking.car._id);
         if(car) {
