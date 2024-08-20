@@ -15,6 +15,8 @@ import CarProvider from './context/CarContext.jsx'
 import AllBooking from './components/AllBooking.jsx'
 import BookingDetails from './components/BookingDetails.jsx'
 import Checkout from './components/Checkout.jsx'
+import AdminDashboard from './components/Admin/AdminDashboard.jsx'
+
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,9 @@ const router = createBrowserRouter([
       },{
         path: '/checkout',
         element: <Checkout />
+      },{
+        path: '/admin',
+        element: <AdminDashboard />
       }
     ]
   },
