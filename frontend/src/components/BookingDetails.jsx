@@ -46,6 +46,7 @@ const BookingDetails = () => {
             <p>Pick Up Location : {bookingDetails.pickUpLocation}</p>
             <p>Drop Off Location : {bookingDetails.dropOffLocation}</p>
             <p>Total duration : {bookingDetails.totalNoOfDays}</p>
+            <p>Allowed KM : {bookingDetails.allowedKM}KM</p>
             <p className='fw-bold'>TOTAL BOOKING COST : ₹ {bookingDetails.totalPrice}</p>
             <Button onClick={()=>{navigate('/checkout')}}>COMPLETE BOOKING</Button>
         </Container>
