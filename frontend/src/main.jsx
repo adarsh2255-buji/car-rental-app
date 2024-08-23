@@ -16,6 +16,7 @@ import AllBooking from './components/AllBooking.jsx'
 import BookingDetails from './components/BookingDetails.jsx'
 import Checkout from './components/Checkout.jsx'
 import AdminDashboard from './components/Admin/AdminDashboard.jsx'
+import GetAllBookings from './components/Admin/GetAllBookings.jsx'
 
 
 const router = createBrowserRouter([
@@ -51,6 +52,9 @@ const router = createBrowserRouter([
       },{
         path: '/admin',
         element: <AdminDashboard />
+      },{
+        path: 'allBookings',
+        element: <GetAllBookings />
       }
     ]
   },
