@@ -1,19 +1,32 @@
 import Car from "../model/carModel.js";
+import multer from 'multer'
+import path from 'path'
+
+//multer file storage
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname));
+    },
+});
+
+const upload = multer({ storage: storage});
 
 //CREATE CAR
 export const createCar = async (req, res) =>{
     try {
         const { make,
             model,
-            image, 
             fuelType,
-            gearTransmission,
-            allowedKM, 
+            gearTransmission, 
             kmPerDay, 
             seater, 
             pricePerDay, 
         } = req.body;
-        // const image = req.file.path;
+        const image = req.file.path;
 
         const car = new Car({
             make,
@@ -21,7 +34,6 @@ export const createCar = async (req, res) =>{
             fuelType,
             image,
             gearTransmission,
-            allowedKM,
             kmPerDay,
             seater,
             pricePerDay,
@@ -35,7 +47,7 @@ export const createCar = async (req, res) =>{
         res.status(500).json({ message : "Server error", error})
     }
 }
-
+export const uploadCarImage = upload.single('image')
 // GET CAR BY ID
 export const getCarById = async(req, res) => {
     try {
