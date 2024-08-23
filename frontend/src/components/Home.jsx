@@ -36,11 +36,12 @@ const Home = () => {
             <Card.Body>
               <Card.Title>{car.make}</Card.Title>
               <Card.Subtitle>{car.model}</Card.Subtitle>
-              <Card.Img  src={car.image}/>
-              <Card.Text>Allowed KM : {car.allowedKM}</Card.Text>
+              <Card.Img  src={`${api.defaults.baseURL}/${car.image}`}
+                                alt={`${car.make} ${car.model}`}/>
+              {/* <Card.Text>Allowed KM : {car.allowedKM}</Card.Text> */}
               <Card.Text>Gear Transmission : {car.gearTransmission}</Card.Text>
               <Card.Text>Km per day : {car.kmPerDay}</Card.Text>
-              <Card.Text>price Per Day: {car.pricePerDay}</Card.Text>
+              <Card.Text>Price Per Day: {car.pricePerDay}</Card.Text>
               <Card.Text>Seater : {car.seater}</Card.Text>
               <Card.Text>Availability :{car.availability ? 'Available' : 'Not available'}</Card.Text>
               <Button onClick={()=>{HandleSelectCar(car._id)}}>Select</Button>
