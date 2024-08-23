@@ -6,9 +6,14 @@ import carRouter from './routes/carRoutes.js'
 import bookingRouter from './routes/bookingRoutes.js'
 import adminRouter from './routes/adminRoutes.js'
 import cookieParser from 'cookie-parser';
-import cors from 'cors'
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 dotenv.config();
 const port = process.env.PORT || 3000;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 connectDb()
@@ -21,6 +26,7 @@ app.use(userRouter)
 app.use(carRouter)
 app.use(bookingRouter)
 app.use(adminRouter)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.get('/', (req, res) => {
   res.send(`Hello world`);
 });
