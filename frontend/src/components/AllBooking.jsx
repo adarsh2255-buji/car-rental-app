@@ -61,13 +61,15 @@ const AllBooking = () => {
                     <strong>Total Price:</strong> ₹{booking.totalPrice}
                     <br />
                     {
-                        booking.status !== "cancelled" ?  (
-                            <Button variant='danger' onClick={()=> handleCancelBooking(booking._id)} disabled= {booking.isCancelling}>
+                        booking.status !== "cancelled" && booking.status !== 'Journey Completed'?  (
+                            <Button variant='danger'
+                            onClick={()=> handleCancelBooking(booking._id)} 
+                            disabled = {booking.isCancelling}>
                                 {booking.isCancelling ? 'Booking Cancelled' : 'Cancel Booking'}
                             </Button>
                         ) : (
                             <Button variant="secondary" disabled>
-                            Booking Cancelled
+                            {booking.status === 'cancelled' ? 'Booking Cancelled' : "Journey Completed"}
                         </Button>
                         )
                     }
