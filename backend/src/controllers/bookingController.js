@@ -23,6 +23,16 @@ const totalDays = (dropOffDateAndTime, pickUpDateAndTime)=>{
     return days;
 }
 
+const calculateAllowedKM = (dropOffDateAndTime, pickUpDateAndTime) => {
+    const dropOffDate = new Date(dropOffDateAndTime);
+    const pickUpDate = new Date(pickUpDateAndTime);
+    const days = Math.ceil((dropOffDate - pickUpDate) / (1000 * 60 * 60 * 24));
+    
+    const allowedKmPerDay = 120;
+    const allowedKm = days * allowedKmPerDay;
+    return allowedKm;
+}
+
 //update booking status
 const updateBookingStatus = (booking) =>{
     const currentDate = new Date();
@@ -63,7 +73,8 @@ export const carBooking = async (req, res) =>{
 
              
             //total price
-            const totalPrice = calculateTotalPrice(bookedCar.pricePerDay, pickUpDateAndTime, dropOffDateAndTime)
+            const totalPrice = calculateTotalPrice(bookedCar.pricePerDay, pickUpDateAndTime, dropOffDateAndTime);
+            const allowedKM = calculateAllowedKM(dropOffDateAndTime, pickUpDateAndTime);
            
             if (isNaN(totalNoOfDays) || totalNoOfDays <= 0) {
                 return res.status(400).json({ message: "Invalid booking dates" });
@@ -79,6 +90,7 @@ export const carBooking = async (req, res) =>{
                 dropOffDateAndTime,
                 totalPrice,
                 totalNoOfDays,
+                allowedKM
             })
 
             await booking.save();
