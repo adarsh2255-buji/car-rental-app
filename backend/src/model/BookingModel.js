@@ -7,6 +7,7 @@ const bookingSchema = mongoose.Schema({
     pickUpDateAndTime : { type : Date, required : true },
     dropOffLocation : { type : String, required : true },
     dropOffDateAndTime : { type : Date, required : true },
+    allowedKM : { type : Number, required : true },
     totalPrice : { type : Number, required : true },
     totalNoOfDays : { type : Number, required : true },
     status : {type : String, default : 'Booked'},
