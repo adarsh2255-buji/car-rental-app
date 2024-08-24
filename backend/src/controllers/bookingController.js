@@ -1,5 +1,6 @@
 import Booking from "../model/BookingModel.js";
-import Car from "../model/carModel.js"
+import Car from "../model/carModel.js";
+import jwt from 'jsonwebtoken'
 import User from "../model/userModel.js"
  
 //function to calculate total price
@@ -34,7 +35,7 @@ const calculateAllowedKM = (dropOffDateAndTime, pickUpDateAndTime) => {
 }
 
 //update booking status
-const updateBookingStatus = (booking) =>{
+const updateBookingStatus = async (booking) =>{
     const currentDate = new Date();
     const pickUpDate = new Date(booking.pickUpDateAndTime);
     const dropOffDate = new Date(booking.dropOffDateAndTime);
@@ -44,7 +45,14 @@ const updateBookingStatus = (booking) =>{
     } else if(currentDate >= pickUpDate && currentDate <=dropOffDate){
         booking.status = 'On Journey';
     } else if( currentDate > dropOffDate) {
-        booking.status = "Journey Completed"
+        booking.status = "Journey Completed";
+
+         // Update car availability to true when the journey is completed
+         const car = await Car.findById(booking.car);
+         if(car){
+            car.availability = true;
+            await car.save()
+        }
     }
 }
 //car booking function
@@ -131,12 +139,13 @@ export const carBookingById  = async(req, res) =>{
 //get all booking
 export const getAllCarBooking = async(req, res) =>{
     try {
-        const bookings = await Booking.find().populate('user').populate('car');
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decoded.userId;
 
-        // bookings.forEach(async (booking) => {
-        //     updateBookingStatus(booking);
-        //     await booking.save()            
-        // });
+        //find booking where the user matches the logged-in user
+        const bookings = await Booking.find({ user: userId }).populate('user').populate('car');
+        
         res.status(200).json({ bookings })
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });
