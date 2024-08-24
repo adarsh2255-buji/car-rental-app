@@ -56,6 +56,7 @@ const AllBooking = () => {
                 <Card.Text>
                     <strong>Pick-Up Location:</strong> {booking.pickUpLocation}<br />
                     <strong>Pick-Up Date & Time:</strong> {new Date(booking.pickUpDateAndTime).toLocaleString()}<br />
+                    <strong>Drop-Off Location:</strong> {booking.dropOffLocation}<br />
                     <strong>Drop-Off Date & Time:</strong> {new Date(booking.dropOffDateAndTime).toLocaleString()}<br />
                     <strong>Total Duration:</strong> {booking.totalNoOfDays} <br />
                     <strong>Total Price:</strong> ₹{booking.totalPrice}
