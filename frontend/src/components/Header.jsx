@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer} from 'react-router-bootstrap'
 import { UserContext } from '../context/UserContext';
+import { Dropdown } from 'react-bootstrap';
 
 const Header = () => {
   const { user, logout } = useContext(UserContext)
@@ -26,7 +27,15 @@ const Header = () => {
 
               {/* if user is admin */}
               {user.isAdmin && (
-                <LinkContainer to='/admin'><Nav.Link>Admin Dashboard</Nav.Link></LinkContainer>
+                <Dropdown>
+                  <Dropdown.Toggle>
+                    Admin Dashboard
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item><LinkContainer to='/admin'><Nav.Link>Add car</Nav.Link></LinkContainer></Dropdown.Item>
+                    <Dropdown.Item><LinkContainer to='/allBookings'><Nav.Link>All Bookings</Nav.Link></LinkContainer></Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               )}
               <LinkContainer to='/signout'><Nav.Link onClick={logout}>Sign out</Nav.Link></LinkContainer>
               
