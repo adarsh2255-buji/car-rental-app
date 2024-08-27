@@ -1,19 +1,7 @@
 import Car from "../model/carModel.js";
-import multer from 'multer'
-import path from 'path'
+import { imageUploadCloudinary } from "../utils/cloundinaryUpload.js";
 
-//multer file storage
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    },
-});
-
-const upload = multer({ storage: storage});
 
 //CREATE CAR
 export const createCar = async (req, res) =>{
@@ -26,13 +14,21 @@ export const createCar = async (req, res) =>{
             seater, 
             pricePerDay, 
         } = req.body;
-        const image = req.file.path;
+        let imageurl;
+       
+
+        //upload an image
+
+        if(req.file) {
+            imageurl = await imageUploadCloudinary(req.file.path);
+            console.log('Image uploaded to Cloudinary:', imageurl);
+        }
 
         const car = new Car({
             make,
             model,
             fuelType,
-            image,
+            image:  imageurl || null,
             gearTransmission,
             kmPerDay,
             seater,
@@ -47,7 +43,7 @@ export const createCar = async (req, res) =>{
         res.status(500).json({ message : "Server error", error})
     }
 }
-export const uploadCarImage = upload.single('image')
+
 // GET CAR BY ID
 export const getCarById = async(req, res) => {
     try {
