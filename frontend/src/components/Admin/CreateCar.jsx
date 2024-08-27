@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import api from '../../../api';
+import { toast } from 'react-toastify';
 
 
 const CreateCar = () => {
@@ -46,6 +47,7 @@ const CreateCar = () => {
         }
       });
 
+      toast.success(response.data.message)
       console.log(response.data.message);
       // Reset form after successful submission
       setFormData({
@@ -58,8 +60,10 @@ const CreateCar = () => {
         seater: '',
         pricePerDay: ''
       });
+      
     } catch (error) {
       console.error("Error creating car:", error.response?.data || error.message);
+      toast.error(error.response?.data || error.message)
     }
   };
 
@@ -68,7 +72,7 @@ const CreateCar = () => {
       <h2>Create a New Car</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formMake">
-          <Form.Label>Make</Form.Label>
+          <Form.Label className='text-white'>Make</Form.Label>
           <Form.Control
             type="text"
             name="make"
@@ -79,7 +83,7 @@ const CreateCar = () => {
         </Form.Group>
 
         <Form.Group controlId="formModel">
-          <Form.Label>Model</Form.Label>
+          <Form.Label className='text-white'>Model</Form.Label>
           <Form.Control
             type="text"
             name="model"
@@ -90,7 +94,7 @@ const CreateCar = () => {
         </Form.Group>
 
         <Form.Group controlId="formImage">
-          <Form.Label>Image</Form.Label>
+          <Form.Label className='text-white'>Image</Form.Label>
           <Form.Control
             type="file"
             name="image"
@@ -100,7 +104,7 @@ const CreateCar = () => {
         </Form.Group>
 
         <Form.Group controlId="formFuelType">
-          <Form.Label>Fuel Type</Form.Label>
+          <Form.Label className='text-white'>Fuel Type</Form.Label>
           <Form.Control
             type="text"
             name="fuelType"
@@ -111,7 +115,7 @@ const CreateCar = () => {
         </Form.Group>
 
         <Form.Group controlId="formGearTransmission">
-          <Form.Label>Gear Transmission</Form.Label>
+          <Form.Label className='text-white'>Gear Transmission</Form.Label>
           <Form.Control
             type="text"
             name="gearTransmission"
@@ -122,7 +126,7 @@ const CreateCar = () => {
         </Form.Group>
         
         <Form.Group controlId="formKMPerDay">
-          <Form.Label>KM Per Day</Form.Label>
+          <Form.Label className='text-white'>KM Per Day</Form.Label>
           <Form.Control
             type="number"
             name="kmPerDay"
@@ -133,7 +137,7 @@ const CreateCar = () => {
         </Form.Group>
 
         <Form.Group controlId="formSeater">
-          <Form.Label>Seater</Form.Label>
+          <Form.Label className='text-white'>Seater</Form.Label>
           <Form.Control
             type="number"
             name="seater"
@@ -144,7 +148,7 @@ const CreateCar = () => {
         </Form.Group>
 
         <Form.Group controlId="formPricePerDay">
-          <Form.Label>Price Per Day</Form.Label>
+          <Form.Label className='text-white'>Price Per Day</Form.Label>
           <Form.Control
             type="number"
             name="pricePerDay"
@@ -154,7 +158,7 @@ const CreateCar = () => {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" className='my-3'>
           Create Car
         </Button>
       </Form>

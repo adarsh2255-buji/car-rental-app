@@ -4,10 +4,13 @@ import api from '../../api';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { CarContext } from '../context/CarContext';
 import styles from '../styles/Home.module.css'
+import { UserContext } from '../context/UserContext';
 
 const Home = () => {
   const [cars, setCar] = useState([]);
   const { setSelectedCarId } = useContext(CarContext);
+
+  const { user } = useContext(UserContext)
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -26,7 +29,7 @@ const Home = () => {
     console.log(carId)
   }  
   return (
-    <div className={styles.home}>
+    <div>
       <h1 className='text-center'>SELECT YOUR CAR</h1>
       <Container>
         <Row>
@@ -43,7 +46,9 @@ const Home = () => {
               <Card.Text className='text-white'>Km per day : {car.kmPerDay}</Card.Text>
               <Card.Text className='text-white'>Price Per Day: {car.pricePerDay}</Card.Text>
               <Card.Text className='text-white'>Seater : {car.seater}</Card.Text>
-              <Card.Text className='text-white'>Availability :{car.availability ? 'Available' : 'Not available'}</Card.Text>
+              {user && (
+                <Card.Text className='text-white'>Availability :{car.availability ? 'Available' : 'Not available'}</Card.Text>
+              )}      
               <Button onClick={()=>{HandleSelectCar(car._id)}}>Select</Button>
             </Card.Body>
           </Card>

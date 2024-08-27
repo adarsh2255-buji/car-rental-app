@@ -48,11 +48,11 @@ const AllBooking = () => {
         <Row>
         {allBooking.map((booking)=>(
             <Col key={booking._id} md={4} sm={6} className="mb-4">
-            <Card>
+            <Card style={{ background: 'transparent' }}>
             <Card.Img variant="top" src={booking.car.image} alt={`${booking.car.make} ${booking.car.model}`} />
                 <Card.Body>
-                <Card.Title>{`${booking.car.make} ${booking.car.model}`}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">Status: {booking.status}</Card.Subtitle>
+                <Card.Title className='text-white'>{`${booking.car.make} ${booking.car.model}`}</Card.Title>
+                <Card.Subtitle className="mb-2  text-white">Status: {booking.status}</Card.Subtitle>
                 <Card.Text>
                     <strong>Pick-Up Location:</strong> {booking.pickUpLocation}<br />
                     <strong>Pick-Up Date & Time:</strong> {new Date(booking.pickUpDateAndTime).toLocaleString()}<br />

@@ -7,6 +7,8 @@ import Row from 'react-bootstrap/Row'
 import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
+import styles from '../styles/App.module.css';
+import { toast } from 'react-toastify';
 
 const Booking = () => {
   const [bookingData, setBookingData] = useState({
@@ -46,7 +48,7 @@ const Booking = () => {
     const totalPrice = response.data.booking.totalPrice;
     console.log(totalPrice)
     localStorage.setItem('totalPrice', totalPrice);
-
+    toast.success("Booking success")
     navigate(`/BookingDetails/${id}`)
     localStorage.setItem('currentBookingId', id);
     
@@ -58,13 +60,13 @@ const Booking = () => {
   }
   return (
     <div>
-      <Container>
+      <Container className='mb-5'>
         <h1 className='m-4'>Choose your wheel</h1>
         <Container className='d-flex justify-content-center align-items-center'>
     <Form onSubmit={submitHandler} >
       <Row className="mb-3">
       <Form.Group as={Col}>
-        <Form.Label>PICKUP-LOCATION</Form.Label>
+        <Form.Label className={styles.label}>PICKUP-LOCATION</Form.Label>
         <Form.Control type="text" placeholder="Pickup location"
         name='pickUpLocation'
         value={bookingData.pickUpLocation}
@@ -73,7 +75,7 @@ const Booking = () => {
       </Form.Group>
 
       <Form.Group as={Col}>
-        <Form.Label>PICK-UP DATE AND TIME</Form.Label>
+        <Form.Label className={styles.label}>PICK-UP DATE AND TIME</Form.Label>
         <Form.Control type="Date"
         name='pickUpDateAndTime'
         value={bookingData.pickUpDateAndTime}
@@ -84,7 +86,7 @@ const Booking = () => {
 
       <Row className='mb-3'>
       <Form.Group as={Col}>
-        <Form.Label>DROP-OFF LOCATION</Form.Label>
+        <Form.Label className={styles.label}>DROP-OFF LOCATION</Form.Label>
         <Form.Control type="text" placeholder="Drop off location"
         name='dropOffLocation'
         value={bookingData.dropOffLocation}
@@ -93,7 +95,7 @@ const Booking = () => {
       </Form.Group>
       
       <Form.Group as={Col}>
-        <Form.Label>DROP OF DATE AND TIME</Form.Label>
+        <Form.Label className={styles.label}>DROP OF DATE AND TIME</Form.Label>
         <Form.Control type="Date"
         name='dropOffDateAndTime'
         value={bookingData.dropOffDateAndTime}

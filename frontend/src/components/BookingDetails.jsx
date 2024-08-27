@@ -29,16 +29,16 @@ const BookingDetails = () => {
     }, [])
     
     if (!bookingDetails) {
-        return <div>Loading...</div>; // Render a loading message or spinner while data is being fetched
+        return <div>Loading...</div>; 
     }
     
   return (
     <div>
         <h1>Complete your booking</h1>
-        <Container>
+        <Container className='mb-5'>
             <img className='w-50' src={bookingDetails.car.image} alt="car image"/>
-            <h5>{bookingDetails.car.make} {bookingDetails.car.model}</h5>
-            <h3>YOUR BOOKING DETAILS </h3>
+            <h5 style={{color:'#FF5733 '}}>{bookingDetails.car.make} {bookingDetails.car.model}</h5>
+            <h3 style={{textDecoration:'underline'}}>YOUR BOOKING DETAILS </h3>
             <p>Car Make & Model : {bookingDetails.car.make} {bookingDetails.car.model}</p>
             <p>Fuel Type : {bookingDetails.car.fuelType}</p>
             <p>Pick Up Date : {new Date(bookingDetails.pickUpDateAndTime).toDateString()}</p>

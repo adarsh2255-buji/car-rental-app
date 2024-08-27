@@ -19,6 +19,7 @@ import AdminDashboard from './components/Admin/AdminDashboard.jsx'
 import GetAllBookings from './components/Admin/GetAllBookings.jsx'
 import Aboutus from './components/Aboutus.jsx'
 import Contact from './components/Contact.jsx'
+import styles from './styles/home.module.css'
 
 
 const router = createBrowserRouter([
@@ -68,11 +69,13 @@ const router = createBrowserRouter([
   },
 ])
 createRoot(document.getElementById('root')).render(
+  <div className={styles.home}>
   <StrictMode>
     <UserProvider>
       <CarProvider>
     <RouterProvider router={router}/>
       </CarProvider>
     </UserProvider>
-  </StrictMode>,
+  </StrictMode>
+  </div>
 )
