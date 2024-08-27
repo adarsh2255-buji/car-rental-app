@@ -1,0 +1,9 @@
+.navLink{
+    color: white;
+    text-decoration: none;
+}
+
+.navLink :hover{
+    text-decoration: underline;
+    color: white;
+}

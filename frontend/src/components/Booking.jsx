@@ -43,9 +43,13 @@ const Booking = () => {
     );
     
     const id = response.data.booking._id;
+    const totalPrice = response.data.booking.totalPrice;
+    console.log(totalPrice)
+    localStorage.setItem('totalPrice', totalPrice);
 
     navigate(`/BookingDetails/${id}`)
     localStorage.setItem('currentBookingId', id);
+    
       console.log(response.data)
     } catch (error) {
       console.log(error)  

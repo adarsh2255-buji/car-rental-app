@@ -1,0 +1,8 @@
+.home{
+    background-image: url('https://media.autoexpress.co.uk/image/private/s--aruyu9pf--/v1575316843/autoexpress/2019/11/vauxhall_astra_new_interior.jpg');
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    background: rgb(2,0,36);
+    background: linear-gradient(86deg, rgba(2,0,36,1) 0%, rgba(85,149,172,1) 35%, rgba(10,191,228,1) 100%);
+}

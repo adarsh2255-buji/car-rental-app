@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../api';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { CarContext } from '../context/CarContext';
+import styles from '../styles/Home.module.css'
 
 const Home = () => {
   const [cars, setCar] = useState([]);
@@ -25,25 +26,24 @@ const Home = () => {
     console.log(carId)
   }  
   return (
-    <div>
-      <h1>Select your car</h1>
+    <div className={styles.home}>
+      <h1 className='text-center'>SELECT YOUR CAR</h1>
       <Container>
         <Row>
       {
         cars.map((car)=>(
           <Col  key={car._id} md={4} sm={6} className="mb-4">
-          <Card>
-            <Card.Body>
-              <Card.Title>{car.make}</Card.Title>
-              <Card.Subtitle>{car.model}</Card.Subtitle>
-              <Card.Img  src={`${api.defaults.baseURL}/${car.image}`}
-                                alt={`${car.make} ${car.model}`}/>
+          <Card className='shadow' style={{ background: 'transparent' }}>
+            <Card.Body >
+              <Card.Title className='text-white'>{car.make}</Card.Title>
+              <Card.Subtitle className='text-white'>{car.model}</Card.Subtitle>
+              <Card.Img  src={car.image} alt={`${car.make} ${car.model}`}/>
               {/* <Card.Text>Allowed KM : {car.allowedKM}</Card.Text> */}
-              <Card.Text>Gear Transmission : {car.gearTransmission}</Card.Text>
-              <Card.Text>Km per day : {car.kmPerDay}</Card.Text>
-              <Card.Text>Price Per Day: {car.pricePerDay}</Card.Text>
-              <Card.Text>Seater : {car.seater}</Card.Text>
-              <Card.Text>Availability :{car.availability ? 'Available' : 'Not available'}</Card.Text>
+              <Card.Text className='text-white'>Gear Transmission : {car.gearTransmission}</Card.Text>
+              <Card.Text className='text-white'>Km per day : {car.kmPerDay}</Card.Text>
+              <Card.Text className='text-white'>Price Per Day: {car.pricePerDay}</Card.Text>
+              <Card.Text className='text-white'>Seater : {car.seater}</Card.Text>
+              <Card.Text className='text-white'>Availability :{car.availability ? 'Available' : 'Not available'}</Card.Text>
               <Button onClick={()=>{HandleSelectCar(car._id)}}>Select</Button>
             </Card.Body>
           </Card>

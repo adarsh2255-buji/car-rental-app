@@ -1,10 +1,12 @@
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon} from 'mdb-react-ui-kit'
 import React from 'react'
+import Nav from 'react-bootstrap/Nav';
+import { LinkContainer } from 'react-router-bootstrap'
 
 const Footer = () => {
   return (
     <>
-   <MDBFooter className='text-center text-lg-start text-muted bg-success bg-gradien'>
+   <MDBFooter className=' bg-primary bg-gradient text-white'>
       <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
         <div className='me-5 d-none d-lg-block'>
           <span>Get connected with us on social networks:</span>
@@ -38,60 +40,28 @@ const Footer = () => {
             <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>
                 <MDBIcon icon="gem" className="me-3" />
-                Company name
+                WHEELS HUB
               </h6>
               <p>
-                Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit.
+              WheelsHub is your trusted partner for premium car rentals, offering a wide selection of vehicles to meet every need and budget. Whether you're planning a weekend getaway or need a reliable ride for your business trip, we provide top-notch service,
+              competitive pricing, and a seamless booking experience. Our mission is to make your journey as smooth and enjoyable as possible
               </p>
             </MDBCol>
 
             <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
-              <h6 className='text-uppercase fw-bold mb-4'>Products</h6>
-              <p>
-                <a href='#!' className='text-reset'>
-                  Angular
-                </a>
-              </p>
-              <p>
-                <a href='#!' className='text-reset'>
-                  React
-                </a>
-              </p>
-              <p>
-                <a href='#!' className='text-reset'>
-                  Vue
-                </a>
-              </p>
-              <p>
-                <a href='#!' className='text-reset'>
-                  Laravel
-                </a>
-              </p>
+              <h6 className='text-uppercase fw-bold mb-4'>Information</h6>
+    
+              <p><LinkContainer to='/aboutus'><Nav.Link>About</Nav.Link></LinkContainer></p>
+              <p><LinkContainer to='/termsAndConditions'><Nav.Link>Terms and Conditions</Nav.Link></LinkContainer></p>
+              <p><LinkContainer to='/privacyAndPolicy'><Nav.Link>Privacy & Cookies Policy</Nav.Link></LinkContainer></p>
             </MDBCol>
 
             <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
-              <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>
-              <p>
-                <a href='#!' className='text-reset'>
-                  Pricing
-                </a>
-              </p>
-              <p>
-                <a href='#!' className='text-reset'>
-                  Settings
-                </a>
-              </p>
-              <p>
-                <a href='#!' className='text-reset'>
-                  Orders
-                </a>
-              </p>
-              <p>
-                <a href='#!' className='text-reset'>
-                  Help
-                </a>
-              </p>
+              <h6 className='text-uppercase fw-bold mb-4'>Customer Support</h6>
+              
+              <p><LinkContainer to='/aboutus'><Nav.Link>FAQ</Nav.Link></LinkContainer></p>
+              <p><LinkContainer to='/termsAndConditions'><Nav.Link>How it works ?</Nav.Link></LinkContainer></p>
+              <p><LinkContainer to='/privacyAndPolicy'><Nav.Link>Contact Us</Nav.Link></LinkContainer></p>
             </MDBCol>
 
             <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4'>
@@ -102,7 +72,7 @@ const Footer = () => {
               </p>
               <p>
                 <MDBIcon icon="envelope" className="me-3" />
-                info@example.com
+                wheelshub@gmail.com
               </p>
               <p>
                 <MDBIcon icon="phone" className="me-3" /> + 01 234 567 88
@@ -118,7 +88,7 @@ const Footer = () => {
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
         © 2021 Copyright:
         <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
-          MDBootstrap.com
+          wheelshub.com
         </a>
       </div>
     </MDBFooter>

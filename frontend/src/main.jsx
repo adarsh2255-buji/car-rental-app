@@ -17,6 +17,8 @@ import BookingDetails from './components/BookingDetails.jsx'
 import Checkout from './components/Checkout.jsx'
 import AdminDashboard from './components/Admin/AdminDashboard.jsx'
 import GetAllBookings from './components/Admin/GetAllBookings.jsx'
+import Aboutus from './components/Aboutus.jsx'
+import Contact from './components/Contact.jsx'
 
 
 const router = createBrowserRouter([
@@ -55,6 +57,12 @@ const router = createBrowserRouter([
       },{
         path: 'allBookings',
         element: <GetAllBookings />
+      },{
+        path: '/aboutus',
+        element: <Aboutus />
+      },{
+        path: '/contact',
+        element: <Contact />
       }
     ]
   },

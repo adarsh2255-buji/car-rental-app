@@ -7,7 +7,7 @@ const CreateCar = () => {
   const [formData, setFormData] = useState({
     make: '',
     model: '',
-    image: '',
+    image: null,
     fuelType: '',
     gearTransmission: '',
     kmPerDay: '',
@@ -51,7 +51,7 @@ const CreateCar = () => {
       setFormData({
         make: '',
         model: '',
-        image: '',
+        image: null,
         fuelType: '',
         gearTransmission: '',
         kmPerDay: '',
