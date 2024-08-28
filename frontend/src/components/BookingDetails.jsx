@@ -37,7 +37,7 @@ const BookingDetails = () => {
         <h1>Complete your booking</h1>
         <Container className='mb-5'>
             <img className='w-50' src={bookingDetails.car.image} alt="car image"/>
-            <h5 style={{color:'#FF5733 '}}>{bookingDetails.car.make} {bookingDetails.car.model}</h5>
+            <h5 className='text-info'>{bookingDetails.car.make} {bookingDetails.car.model}</h5>
             <h3 style={{textDecoration:'underline'}}>YOUR BOOKING DETAILS </h3>
             <p>Car Make & Model : {bookingDetails.car.make} {bookingDetails.car.model}</p>
             <p>Fuel Type : {bookingDetails.car.fuelType}</p>

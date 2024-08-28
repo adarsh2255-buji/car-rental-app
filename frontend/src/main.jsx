@@ -21,6 +21,7 @@ import Aboutus from './components/Aboutus.jsx'
 import Contact from './components/Contact.jsx'
 import styles from './styles/home.module.css'
 import ProtectedRouter from './ProtectedRouter.jsx'
+import GetAllUsers from './components/Admin/GetAllUsers.jsx'
 
 
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     element : <Root />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        index: true, // This makes the route act as the default child route
+        element: <Home />, // This will render the Home component when you access the root path
+      },
       {
         path: 'signup',
         element: <SignUp />
@@ -58,13 +63,16 @@ const router = createBrowserRouter([
         element: <ProtectedRouter><AdminDashboard /></ProtectedRouter>
       },{
         path: 'allBookings',
-        element: <ProtectedRouter><GetAllBookings /></ProtectedRouter>
+        element: <GetAllBookings />
       },{
         path: '/aboutus',
         element: <Aboutus />
       },{
         path: '/contact',
         element: <Contact />
+      },{
+        path: '/allUsers',
+        element: <GetAllUsers />
       }
     ]
   },

@@ -22,41 +22,69 @@ const Home = () => {
     fetchCar()
   },[])
   
-  const HandleSelectCar = (carId)=>{
+  const handleSelectCar = (carId)=>{
     setSelectedCarId(carId)
     localStorage.setItem('selectedCarId', carId )
     navigate('/booking')
     console.log(carId)
-  }  
+  } 
+
+  //handle car availability
+  const handleMakeAvailable = async (carId) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await api.patch('/updateCarAvailability', 
+      { carId, availability: true }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response.data);
+      setCar(cars.map(car => car._id === carId ? { ...car, availability: true } : car));
+    } catch (error) {
+      console.log('Error updating car availability:', error.response?.data || error.message);
+    }
+  };
+
   return (
     <div>
       <h1 className='text-center'>SELECT YOUR CAR</h1>
       <Container>
         <Row>
-      {
-        cars.map((car)=>(
-          <Col  key={car._id} md={4} sm={6} className="mb-4">
-          <Card className='shadow' style={{ background: 'transparent' }}>
-            <Card.Body >
-              <Card.Title className='text-white'>{car.make}</Card.Title>
-              <Card.Subtitle className='text-white'>{car.model}</Card.Subtitle>
-              <Card.Img  src={car.image} alt={`${car.make} ${car.model}`}/>
-              {/* <Card.Text>Allowed KM : {car.allowedKM}</Card.Text> */}
-              <Card.Text className='text-white'>Gear Transmission : {car.gearTransmission}</Card.Text>
-              <Card.Text className='text-white'>Km per day : {car.kmPerDay}</Card.Text>
-              <Card.Text className='text-white'>Price Per Day: {car.pricePerDay}</Card.Text>
-              <Card.Text className='text-white'>Seater : {car.seater}</Card.Text>
-              {user && (
-                <Card.Text className='text-white'>Availability :{car.availability ? 'Available' : 'Not available'}</Card.Text>
-              )}      
-              <Button onClick={()=>{HandleSelectCar(car._id)}}>Select</Button>
-            </Card.Body>
-          </Card>
-          </Col>
-        ))
-        
-      }
-      </Row>
+          {cars.map((car) => (
+            <Col key={car._id} md={4} sm={6} className="mb-4">
+              <Card className='shadow' style={{ background: 'transparent' }}>
+                <Card.Body>
+                  <Card.Img src={car.image} alt={`${car.make} ${car.model}`} />
+                  <Card.Title className='text-white'>{car.make}</Card.Title>
+                  {user && user.isAdmin ? (
+                    <>
+                      <Card.Subtitle className='text-white'>{car.model}</Card.Subtitle>
+                      <Card.Text className='text-white'>
+                        Availability: {car.availability ? 'Available' : 'Not Available'}
+                      </Card.Text>
+                      {!car.availability && (
+                        <Button onClick={() => handleMakeAvailable(car._id)}>Make Available</Button>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <Card.Subtitle className='text-white'>{car.model}</Card.Subtitle>
+                      <Card.Text className='text-white'>Gear Transmission: {car.gearTransmission}</Card.Text>
+                      <Card.Text className='text-white'>Km per day: {car.kmPerDay}</Card.Text>
+                      <Card.Text className='text-white'>Price Per Day: {car.pricePerDay}</Card.Text>
+                      <Card.Text className='text-white'>Seater: {car.seater}</Card.Text>
+                      <Card.Text className='text-white'>
+                      {user && (<Card.Text className='text-white'>Availability :{car.availability ? 'Available' : 'Not available'}</Card.Text>)}
+                      </Card.Text>
+                      <Button onClick={() => handleSelectCar(car._id)}>Select</Button>
+                    </>
+                  )}
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
       </Container>
     </div>
   )

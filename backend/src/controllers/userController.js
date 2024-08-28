@@ -64,23 +64,22 @@ const userRegister = async (req, res) => {
                 secure : process.env.NODE_ENV,
                 maxAge : 30 * 24 * 60 * 60 * 1000
             })
-            res.status(201).json({ message : "user logged in successfully", token, 
+            return res.status(201).json({ message : "user logged in successfully", token, 
                 userId : user._id,
                 username : user.username,
                 email : user.email,
                 isAdmin : user.isAdmin})
             return;
         } else{
-            res.status(401).json({ message : "Invalide password" })
+            return res.status(401).json({ message : "Invalide password" })
         }
        } catch (error) {
-        res.status(500).json({ message: "internal server error", error})
-        return
+        return res.status(500).json({ message: "internal server error", error})
        }
     }
 
 
-    //GET USER PROFILE
+    //GET USER PROFILE 
     const getUserProfile = async(req, res)=> {
     try {
         const user = {

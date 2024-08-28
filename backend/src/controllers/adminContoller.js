@@ -12,6 +12,23 @@ export const getAllUsers = async (req, res) => {
     }
 };
 
+//delete user by id
+
+export const deleteUser = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const user = await User.findByIdAndDelete(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ message: "User deleted", user });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+};
+
 //get all booking
 export const getAllBookings = async (req, res) =>{
     try {
@@ -21,6 +38,23 @@ export const getAllBookings = async (req, res) =>{
         res.status(500).json({message : "Server error" , error })
     }
 }
+
+//delete booking by id
+
+export const deleteBooking = async (req, res) => {
+    try {
+        const { bookingId } = req.params;
+        const booking = await Booking.findByIdAndDelete(bookingId);
+
+        if (!booking) {
+            return res.status(404).json({ message: "Booking not found" });
+        }
+
+        res.status(200).json({ message: "Booking deleted", booking });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+};
 
 //update car availability
 
@@ -39,3 +73,4 @@ export const carAvailability = async (req, res) =>{
         res.status(500).json({ message: "Server error", error });
     }
 }
+

@@ -52,7 +52,7 @@ const AllBooking = () => {
             <Card.Img variant="top" src={booking.car.image} alt={`${booking.car.make} ${booking.car.model}`} />
                 <Card.Body>
                 <Card.Title className='text-white'>{`${booking.car.make} ${booking.car.model}`}</Card.Title>
-                <Card.Subtitle className="mb-2  text-white">Status: {booking.status}</Card.Subtitle>
+                <Card.Subtitle className="mb-2  text-info">Status: {booking.status}</Card.Subtitle>
                 <Card.Text>
                     <strong>Pick-Up Location:</strong> {booking.pickUpLocation}<br />
                     <strong>Pick-Up Date & Time:</strong> {new Date(booking.pickUpDateAndTime).toLocaleString()}<br />

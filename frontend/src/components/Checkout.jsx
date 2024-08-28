@@ -73,7 +73,7 @@ const Checkout = () => {
         };
         setReceipt(receiptData);
         setIsPaid('true');
-        localStorage.setItem('isPaid', true)
+        localStorage.setItem('isPaid', 'true')
         toast.success('payment successfull')
         
       } catch (error) {
