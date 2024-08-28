@@ -1,14 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { UserContext } from './context/UserContext'
 import { useNavigate } from 'react-router-dom';
 
 const ProtectedRouter = ({children}) => {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
-    if(!user){
-        return navigate('/home')
+
+    useEffect(()=>{
+      if(!user){
+        return navigate('/signup')
     }
-  return children;
+    }, [user, navigate])
+    
+  return user ? children : null;
 }
 
 export default ProtectedRouter

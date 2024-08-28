@@ -8,7 +8,7 @@ import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import styles from '../styles/App.module.css';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 const Booking = () => {
   const [bookingData, setBookingData] = useState({

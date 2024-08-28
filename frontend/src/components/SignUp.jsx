@@ -7,6 +7,8 @@ import Row from 'react-bootstrap/Row'
 import api from '../../api';
 import { useNavigate } from 'react-router-dom';
 
+import toast, {Toaster} from 'react-hot-toast';
+
 const SignUp = () => {
   const navigate = useNavigate();
  
@@ -22,11 +24,11 @@ const SignUp = () => {
     setUserData({...userData, [e.target.name] : e.target.value})
       
   }
-
   const submitHandler = async(e) =>{
     e.preventDefault();
     try {
       const response = await api.post('/signup', userData);
+      toast.success('user registration successful')
       navigate('/signin')
       console.log(response)
     } catch (error) {
@@ -99,6 +101,7 @@ const SignUp = () => {
       </Button>
     </Form>
     </Container>
+    <p className='text-center'>Already have account <a href="/signin" className='text-white'>Click here</a> </p>  
     </>
   )
 }

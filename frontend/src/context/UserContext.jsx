@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState} from 'react';
+import toast from 'react-hot-toast';
 
 export const UserContext = createContext();
 
@@ -31,7 +32,9 @@ const UserProvider = ({children}) =>{
         localStorage.removeItem('token');
         localStorage.removeItem('currentBookingId');
         localStorage.removeItem('selectedCarId');
-
+        localStorage.removeItem('totalPrice');
+        localStorage.removeItem('isPaid');
+        toast.success('Logged out successful')
     };
 
     return(

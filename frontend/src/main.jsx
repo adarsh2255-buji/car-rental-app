@@ -20,6 +20,7 @@ import GetAllBookings from './components/Admin/GetAllBookings.jsx'
 import Aboutus from './components/Aboutus.jsx'
 import Contact from './components/Contact.jsx'
 import styles from './styles/home.module.css'
+import ProtectedRouter from './ProtectedRouter.jsx'
 
 
 const router = createBrowserRouter([
@@ -42,22 +43,22 @@ const router = createBrowserRouter([
         element: <Home />
       },{
         path: '/booking',
-        element: <Booking />
+        element: <ProtectedRouter><Booking /></ProtectedRouter>
       },{
         path: '/allBooking',
-        element: <AllBooking />
+        element: <ProtectedRouter> <AllBooking /> </ProtectedRouter>
       },{
         path: '/bookingDetails/:id',
-        element: <BookingDetails />
+        element: <ProtectedRouter><BookingDetails /></ProtectedRouter>
       },{
         path: '/checkout',
-        element: <Checkout />
+        element: <ProtectedRouter><Checkout /></ProtectedRouter>
       },{
         path: '/admin',
-        element: <AdminDashboard />
+        element: <ProtectedRouter><AdminDashboard /></ProtectedRouter>
       },{
         path: 'allBookings',
-        element: <GetAllBookings />
+        element: <ProtectedRouter><GetAllBookings /></ProtectedRouter>
       },{
         path: '/aboutus',
         element: <Aboutus />

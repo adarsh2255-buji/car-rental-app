@@ -5,7 +5,8 @@ import Container from 'react-bootstrap/esm/Container';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api';
 import { UserContext } from '../context/UserContext';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
+
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -28,10 +29,10 @@ const SignIn = () => {
       const data = response.data
       if(data){
         login(response.data)
-        toast.success('Signed in successfully');
+        
         navigate('/home')
       }
-      
+      toast.success('user logged in successful')
       console.log(data)
     } catch (error) {
       console.log(error)
@@ -68,6 +69,7 @@ const SignIn = () => {
       </Button>
     </Form>
     </Container>
+    <p className='text-center'>New user <a href="/signup" className='text-white'>Click here</a> </p>
     </>
   )
 }

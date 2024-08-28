@@ -4,6 +4,7 @@ import dropin from 'braintree-web-drop-in'
 import api from '../../api';
 import { Button, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 
 const Checkout = () => {
@@ -71,13 +72,13 @@ const Checkout = () => {
           date : response.data.transaction.createdAt
         };
         setReceipt(receiptData);
-        setIsPaid(true);
-        localStorage.setItem('isPaid', 'true')
-        alert('payment successfull')
+        setIsPaid('true');
+        localStorage.setItem('isPaid', true)
+        toast.success('payment successfull')
         
       } catch (error) {
         console.log(error);
-        alert('payment failed')      
+        toast.error('payment failed')      
       }
     }
   };
