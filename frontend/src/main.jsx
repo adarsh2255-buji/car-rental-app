@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
 import { createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom'
@@ -19,7 +18,7 @@ import AdminDashboard from './components/Admin/AdminDashboard.jsx'
 import GetAllBookings from './components/Admin/GetAllBookings.jsx'
 import Aboutus from './components/Aboutus.jsx'
 import Contact from './components/Contact.jsx'
-import styles from './styles/home.module.css'
+import styles from './styles/Home.module.css'
 import ProtectedRouter from './ProtectedRouter.jsx'
 import GetAllUsers from './components/Admin/GetAllUsers.jsx'
 
