@@ -1,7 +1,7 @@
 import Booking from "../model/BookingModel.js";
 import Car from "../model/carModel.js";
 import jwt from 'jsonwebtoken'
-import User from "../model/userModel.js"
+
  
 //function to calculate total price
 const calculateTotalPrice = (pricePerDay, pickUpDateAndTime, dropOffDateAndTime) =>{

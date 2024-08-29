@@ -48,8 +48,3 @@ export const paymentProcess = async(req, res) =>{
         res.status(500).json({ message: "Server error", error });
     }
 }
-
-
-// merchantId : 'gyfp3py5yqx8fhhb',
-//     privateKey : '459bf44471d6b9cfe699fcecdad14abd',
-//     publicKey : 'vzw65qfzw8bf77cb'
