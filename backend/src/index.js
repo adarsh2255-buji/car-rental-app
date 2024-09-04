@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import paymentRoutes from './routes/paymentRoutes.js'
 dotenv.config();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 
 
@@ -18,7 +18,7 @@ connectDb()
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors()) 
+app.use(cors());
 
 app.use(userRouter)
 app.use(carRouter)
