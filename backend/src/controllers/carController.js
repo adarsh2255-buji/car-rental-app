@@ -69,3 +69,20 @@ export const getAllCars = async (req, res) =>{
         res.status(500).json({ message: "Server error ", error})
     }
 }
+
+// Delete car by id
+
+export const deleteCarById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const car = await Car.findByIdAndDelete(id);
+
+        if(!car) {
+            return res.status(404).json({ message : "Car not found"})
+        }
+
+        res.status(200).json({ message: "Car deleted successfully", car})
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+}
