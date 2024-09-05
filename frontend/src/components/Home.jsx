@@ -80,7 +80,7 @@ const Home = () => {
                       {!car.availability && (
                         <Button onClick={() => handleMakeAvailable(car._id)}>Make Available</Button>
                       )}
-                      <Button variant="danger" onClick={() => handleDeleteCar(car._id) }>Delete</Button>
+                      <Button variant="danger" className='mx-2' onClick={() => handleDeleteCar(car._id) }>Delete</Button>
                     </>
                   ) : (
                     <>
