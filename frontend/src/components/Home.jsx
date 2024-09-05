@@ -5,6 +5,7 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { CarContext } from '../context/CarContext';
 import styles from '../styles/Home.module.css'
 import { UserContext } from '../context/UserContext';
+import toast from 'react-hot-toast';
 
 const Home = () => {
   const [cars, setCar] = useState([]);
@@ -17,7 +18,6 @@ const Home = () => {
     const fetchCar = async()=>{
       const response = await api.get('/cars')
       setCar(response.data.cars)
-      console.log(response.data.cars)
     }
     fetchCar()
   },[])
@@ -26,7 +26,6 @@ const Home = () => {
     setSelectedCarId(carId)
     localStorage.setItem('selectedCarId', carId )
     navigate('/booking')
-    console.log(carId)
   } 
 
   //handle car availability
@@ -39,7 +38,6 @@ const Home = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log(response.data);
       setCar(cars.map(car => car._id === carId ? { ...car, availability: true } : car));
     } catch (error) {
       console.log('Error updating car availability:', error.response?.data || error.message);
@@ -55,7 +53,7 @@ const Home = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log('Car deleted successfully');
+      toast.success('Car deleted successfully');
       setCar(cars.filter((car) => car._id!== carId));
     } catch (error) {
       console.error('Error deleting car:', error.response?.data || error.message);
@@ -82,7 +80,7 @@ const Home = () => {
                       {!car.availability && (
                         <Button onClick={() => handleMakeAvailable(car._id)}>Make Available</Button>
                       )}
-                      <Button onClick={() => handleDeleteCar(car._id) }>Delete</Button>
+                      <Button variant="danger" onClick={() => handleDeleteCar(car._id) }>Delete</Button>
                     </>
                   ) : (
                     <>
