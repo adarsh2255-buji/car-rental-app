@@ -20,7 +20,7 @@ const BookingDetails = () => {
                 }
             )
             setBookingDetails(response.data)
-            console.log(response.data)
+            
             } catch (error) {
                 console.log('Error fetching booking details:', error.response?.data || error.message);
             }        

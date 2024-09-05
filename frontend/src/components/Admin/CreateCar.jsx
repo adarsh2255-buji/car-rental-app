@@ -48,7 +48,6 @@ const CreateCar = () => {
       });
 
       toast.success(response.data.message)
-      console.log(response.data.message);
       // Reset form after successful submission
       setFormData({
         make: '',

@@ -30,16 +30,12 @@ const SignUp = () => {
       const response = await api.post('/signup', userData);
       toast.success('user registration successful')
       navigate('/signin')
-      console.log(response)
+   
     } catch (error) {
       console.log(error)
     }
   }
-  // useEffect(()=>{
-  //   if(userData){
-  //     navigate('/signin')
-  //   }
-  // }, [userData, navigate])
+  
   return (
     <>
     <h1 className='text-center mt-5'>NEW CUSTOMER REGISTER HERE</h1>

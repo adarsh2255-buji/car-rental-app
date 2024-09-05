@@ -17,7 +17,6 @@ const AllBooking = () => {
                 }
             )
             setAllBooking(response.data.bookings)
-            console.log(response.data.bookings)
         }
         fetchallBooking()
     }, [])
@@ -37,7 +36,6 @@ const AllBooking = () => {
             setAllBooking(allBooking.map(booking => 
                 booking._id === bookingId ? { ...booking, status: "cancelled", isCancelling : true} : booking
             ));
-            console.log(response.data.message)
         } catch (error) {
             console.log("Error cancelling booking", error.response?.data || error.message)
         }

@@ -15,7 +15,6 @@ const GetAllBookings = () => {
                 }
             });
             setAllBookings(response.data.booking);
-            console.log(response.data.booking)
         }
         fetchallBookings()
     }, [])
@@ -28,7 +27,6 @@ const GetAllBookings = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log(response.data);
             setAllBookings(allBookings.filter(booking => booking._id!== bookingId));
             toast.success("Booking deleted")
         } catch (error) {

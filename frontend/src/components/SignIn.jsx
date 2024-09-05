@@ -33,7 +33,7 @@ const SignIn = () => {
         navigate('/home')
       }
       toast.success('user logged in successful')
-      console.log(data)
+     
     } catch (error) {
       console.log(error)
       toast.error('Failed to sign in. Please check your credentials.');

@@ -39,7 +39,7 @@ const Checkout = () => {
             return;
           }
           setInstance(dropinInstance)
-          console.log(dropinInstance)
+
         });
       }
   }, [clientToken]);

@@ -46,13 +46,11 @@ const Booking = () => {
     
     const id = response.data.booking._id;
     const totalPrice = response.data.booking.totalPrice;
-    console.log(totalPrice)
+    
     localStorage.setItem('totalPrice', totalPrice);
     toast.success("Booking success")
     navigate(`/BookingDetails/${id}`)
     localStorage.setItem('currentBookingId', id);
-    
-      console.log(response.data)
     } catch (error) {
       console.log(error)  
       console.error(error.response?.data || error.message);

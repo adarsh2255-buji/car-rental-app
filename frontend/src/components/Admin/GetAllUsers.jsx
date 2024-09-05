@@ -29,7 +29,6 @@ const GetAllUsers = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log(response.data);
             toast.success("User deleted successfully")
             setAllUsers(allUsers.filter(user => user._id!== userId));
         } catch (error) {
