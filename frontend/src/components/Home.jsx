@@ -46,6 +46,22 @@ const Home = () => {
     }
   };
 
+  //handle delete car
+  const handleDeleteCar = async (carId) => {
+    const token = localStorage.getItem('token');
+    try {
+      await api.delete(`/deleteCar/${carId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log('Car deleted successfully');
+      setCar(cars.filter((car) => car._id!== carId));
+    } catch (error) {
+      console.error('Error deleting car:', error.response?.data || error.message);
+    }
+  };
+
   return (
     <div>
       <h1 className='text-center'>SELECT YOUR CAR</h1>
@@ -66,6 +82,7 @@ const Home = () => {
                       {!car.availability && (
                         <Button onClick={() => handleMakeAvailable(car._id)}>Make Available</Button>
                       )}
+                      <Button onClick={() => handleDeleteCar(car._id) }>Delete</Button>
                     </>
                   ) : (
                     <>
