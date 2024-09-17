@@ -50,7 +50,7 @@ const GetAllBookings = () => {
                                         Status: {booking.status}
                                     </Card.Subtitle>
                                     <Card.Text>
-                                        <strong>User:</strong> {booking.user.username}
+                                        <strong>User:</strong> {booking.user && booking.user.username ? booking.user.username : <span className='text-danger fw-bold'>No user found</span>  }
                                         <br />
                                         <strong>Pick-Up Location:</strong> {booking.pickUpLocation}
                                         <br />

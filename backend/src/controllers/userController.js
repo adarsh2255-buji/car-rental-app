@@ -64,7 +64,8 @@ const userRegister = async (req, res) => {
                 secure : process.env.NODE_ENV,
                 maxAge : 30 * 24 * 60 * 60 * 1000
             })
-            return res.status(201).json({ message : "user logged in successfully", token, 
+            return res.status(201).json({ message : "user logged in successfully", 
+                token, 
                 userId : user._id,
                 username : user.username,
                 email : user.email,
@@ -79,23 +80,7 @@ const userRegister = async (req, res) => {
     }
 
 
-    //GET USER PROFILE 
-    const getUserProfile = async(req, res)=> {
-    try {
-        const user = {
-            userId : req.user._id,
-            username : req.user.username,
-            email : req.user.email,
-            phone : req.user.phone,
-            address : req.user.address,
-        }
-        res.status(200).json(user)
-        return;
-    } catch (error) {
-        res.status(500).json({message : "Internal server error", error})
-        return;
-    }
-}
+
 
 // USER SIGNOUT
 
@@ -112,6 +97,4 @@ const userSignOut = async(req, res) =>{
   
 export default {userRegister,
     userSignIn,userSignOut,
-    getUserProfile
-
 }; 

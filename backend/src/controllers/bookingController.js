@@ -10,7 +10,7 @@ const calculateTotalPrice = (pricePerDay, pickUpDateAndTime, dropOffDateAndTime)
     const days = Math.ceil((dropOffDate - pickUpDate)/(1000 * 60 * 60 * 24));
     return days * pricePerDay;
 }
-
+// function to calculate total days
 const totalDays = (dropOffDateAndTime, pickUpDateAndTime)=>{
     const dropOffDate = new Date(dropOffDateAndTime);
     const pickUpDate = new Date(pickUpDateAndTime);

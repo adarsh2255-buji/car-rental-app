@@ -7,6 +7,7 @@ import { UserContext } from '../context/UserContext';
 import { Dropdown } from 'react-bootstrap';
 import styles from '../styles/Header.module.css';
 
+
 const Header = () => {
   const { user, logout } = useContext(UserContext);
 

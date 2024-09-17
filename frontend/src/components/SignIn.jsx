@@ -28,8 +28,7 @@ const SignIn = () => {
       const response = await api.post('/signin', signInData);
       const data = response.data
       if(data){
-        login(response.data)
-        
+        login(response.data) 
         navigate('/home')
       }
       toast.success('user logged in successful')
