@@ -54,7 +54,7 @@ const Home = () => {
         }
       });
       toast.success('Car deleted successfully');
-      setCar(cars.filter((car) => car._id!== carId));
+      setCar(cars.filter((car) => car._id !== carId));
     } catch (error) {
       console.error('Error deleting car:', error.response?.data || error.message);
     }
@@ -90,9 +90,14 @@ const Home = () => {
                       <Card.Text className='text-white'>Price Per Day: {car.pricePerDay}</Card.Text>
                       <Card.Text className='text-white'>Seater: {car.seater}</Card.Text>
                       <Card.Text className='text-white'>
-                      {user && (<Card.Text className='text-white'>Availability :{car.availability ? 'Available' : 'Not available'}</Card.Text>)}
+                      {user && (<Card.Text className='text-white'>Availability : {car.availability ? 'Available' : 'Not available'}</Card.Text>)}
                       </Card.Text>
-                      <Button onClick={() => handleSelectCar(car._id)}>Select</Button>
+                      <Button 
+                        onClick={() => handleSelectCar(car._id)} 
+                        disabled={!car.availability}  // Disable button if car is not available
+                      >
+                        Select
+                      </Button>
                     </>
                   )}
                 </Card.Body>
