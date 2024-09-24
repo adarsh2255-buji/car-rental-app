@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import api from '../../api';
-import { Button, Card, Col, Container, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { CarContext } from '../context/CarContext';
 import styles from '../styles/Home.module.css'
 import { UserContext } from '../context/UserContext';
@@ -60,12 +60,6 @@ const Home = () => {
     }
   };
 
-  const renderTooltip = (message) => (
-    <Tooltip id="button-tooltip">
-      {message}
-    </Tooltip>
-  );
-
   return (
     <div>
       <h1 className='text-center'>SELECT YOUR CAR</h1>
@@ -96,25 +90,14 @@ const Home = () => {
                       <Card.Text className='text-white'>Price Per Day: {car.pricePerDay}</Card.Text>
                       <Card.Text className='text-white'>Seater: {car.seater}</Card.Text>
                       <Card.Text className='text-white'>
-                        {user && (
-                          <Card.Text className='text-white'>
-                            Availability: {car.availability ? 'Available' : 'Not available'}
-                          </Card.Text>
-                        )}
+                      {user && (<Card.Text className='text-white'>Availability : {car.availability ? 'Available' : 'Not available'}</Card.Text>)}
                       </Card.Text>
-                      <OverlayTrigger
-                        placement="top"
-                        overlay={renderTooltip(car.availability ? '' : 'This car is not available')}>
-                        <span className="d-inline-block">
-                          <Button 
-                            onClick={() => handleSelectCar(car._id)} 
-                            disabled={!car.availability}  // Disable button if car is not available
-                            style={{ pointerEvents: car.availability ? 'auto' : 'none' }}  // Disable hover interaction when disabled
-                          >
-                            Select
-                          </Button>
-                        </span>
-                      </OverlayTrigger>
+                      <Button 
+                        onClick={() => handleSelectCar(car._id)} 
+                        disabled={!car.availability}  // Disable button if car is not available
+                      >
+                        Select
+                      </Button>
                     </>
                   )}
                 </Card.Body>
@@ -127,4 +110,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default Home
